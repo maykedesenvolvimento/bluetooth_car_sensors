@@ -40,39 +40,34 @@ class _DeviceListingPageState extends State<DeviceListingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dispositivos bluetooth'),
-      ),
-      body: loading
-          ? Column(
-              children: const [
-                Text('Procurando por dispositivos...'),
-                CircularProgressIndicator(),
-              ],
-            )
-          : ListView(
-              children: scanResults
-                  .map(
-                    (result) => ListTile(
-                      title: Text(
-                        result.device.name.isEmpty
-                            ? 'Dispositivo desconhecido ${scanResults.indexOf(result)}'
-                            : result.device.name,
-                      ),
-                      subtitle: Text(result.device.id.toString()),
-                      trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => DeviceDetailsPage(
-                            device: result.device,
-                          ),
+    return loading
+        ? Column(
+            children: const [
+              Text('Procurando por dispositivos...'),
+              CircularProgressIndicator(),
+            ],
+          )
+        : ListView(
+            children: scanResults
+                .map(
+                  (result) => ListTile(
+                    title: Text(
+                      result.device.name.isEmpty
+                          ? 'Dispositivo desconhecido ${scanResults.indexOf(result)}'
+                          : result.device.name,
+                    ),
+                    subtitle: Text(result.device.id.toString()),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => DeviceDetailsPage(
+                          device: result.device,
                         ),
                       ),
                     ),
-                  )
-                  .toList(),
-            ),
-    );
+                  ),
+                )
+                .toList(),
+          );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:bluetooth/adjust/adjust_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class RevCounterWidget extends StatelessWidget {
@@ -23,6 +25,8 @@ class RevCounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<AdjustProvider>();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -76,6 +80,12 @@ class RevCounterWidget extends StatelessWidget {
               ],
             ),
           ],
+        ),
+        Slider(
+          value: currentValue,
+          onChanged: provider.setCurrentRevCounterValue,
+          min: 0,
+          max: maxValue,
         ),
       ],
     );

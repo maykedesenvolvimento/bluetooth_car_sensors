@@ -1,5 +1,6 @@
 import 'package:bluetooth/adjust/adjust_page.dart';
 import 'package:bluetooth/adjust/adjust_provider.dart';
+import 'package:bluetooth/device/listing_page.dart';
 import 'package:bluetooth/sensor/rev_counter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,10 +25,10 @@ class _SensorListingPageState extends State<SensorListingPage> {
     Consumer<AdjustProvider>(builder: (context, provider, _) {
       return RevCounterWidget(
         maxValue: provider.revCounterMaxValue,
-        currentValue: 2000,
+        currentValue: provider.currentRevCounterValue,
       );
     }),
-    Container(),
+    const DeviceListingPage(),
     const AdjustsPage(),
   ];
 
@@ -61,7 +62,7 @@ class _SensorListingPageState extends State<SensorListingPage> {
       ),
       body: Container(
         alignment: Alignment.center,
-        padding: const EdgeInsets.all(40),
+        padding: const EdgeInsets.all(20),
         child: _children[_index],
       ),
     );
